@@ -1,0 +1,10 @@
+name: sales
+keywords: [продажи, выручка, оборот]
+dimensions: [period, product, customer]
+measures: [qty, amount]
+sql: |
+  SELECT date_trunc('{period}', sold_at) AS period,
+         product_id, SUM(qty) AS qty, SUM(amount) AS amount
+  FROM sales
+  WHERE sold_at BETWEEN '{from}' AND '{to}'
+  GROUP BY period, product_id;
